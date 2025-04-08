@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "fullName": "therock",
+        "phone": 1234312,
+        "address": "jalan rockbottom"
+    },
+    {
+        "id": 2,
+        "fullName": "johncena",
+        "phone": 3143532243,
+        "address": "jalan nowyouseeme"
+    },
+    {
+        "id": 3,
+        "fullName": "kane",
+        "phone": 1232143423,
+        "address": "jalan slam"
+    },
+    {
+        "id": 4,
+        "fullName": "undertaker",
+        "phone": 37482649707,
+        "address": "jalan harley"
+    },
+    {
+        "id": 5,
+        "fullName": "stonecold",
+        "phone": 232413432542,
+        "address": "jalan stoner"
+    }
+]

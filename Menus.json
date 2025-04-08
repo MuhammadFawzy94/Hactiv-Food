@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1,
+        "nameFood": "Nasi Padang",
+        "description": 1234312,
+        "price": "15000",
+        "imgUrl": "https://www.google.com/imgres?q=nasi%20padang&imgurl=https%3A%2F%2Fcdn.rri.co.id%2Fberita%2F1%2Fimages%2F1689391542821-images_(22)%2F1689391542821-images_(22).jpeg&imgrefurl=https%3A%2F%2Fwww.rri.co.id%2Faceh%2Fkuliner%2F287306%2Fdigemari-masyarakat-ini-asal-usul-nasi-padang&docid=gdJiuZVxqHffbM&tbnid=2LNjp2XEgYheWM&vet=12ahUKEwjWq6ySl8iMAxUUe2wGHVh5GWwQM3oECB0QAA..i&w=554&h=427&hcb=2&ved=2ahUKEwjWq6ySl8iMAxUUe2wGHVh5GWwQM3oECB0QAA"
+    },
+    {
+        "id": 2,
+        "nameFood": "Nasi Uduk",
+        "description": 3143532243,
+        "price": "20000",
+        "imgUrl": "https://www.google.com/imgres?q=nasi%20uduk&imgurl=https%3A%2F%2Fwww.dapurkobe.co.id%2Fwp-content%2Fuploads%2Fnasi-uduk-kobe.jpg&imgrefurl=https%3A%2F%2Fwww.dapurkobe.co.id%2Fnasi-uduk-kobe&docid=lIdRiquJROMrZM&tbnid=A0XaC3HI5eJMZM&vet=12ahUKEwihptebl8iMAxWKR2wGHTL_FGkQM3oECBYQAA..i&w=617&h=411&hcb=2&ved=2ahUKEwihptebl8iMAxWKR2wGHTL_FGkQM3oECBYQAA"
+    },
+    {
+        "id": 3,
+        "nameFood": "Nasi Kuning",
+        "description": 1232143423,
+        "price": "10000",
+        "imgUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fcookpad.com%2Fid%2Fresep%2F915151-nasi-kuning-wangi-dan-gurih-ala-rieska&psig=AOvVaw3DIbryxT8VPmZsV6I4cqPr&ust=1744192981257000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCMi9zaqXyIwDFQAAAAAdAAAAABAE"
+    },
+    {
+        "id": 4,
+        "nameFood": "Nasi Rames",
+        "description": 37482649707,
+        "price": "15000",
+        "imgUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fid.wikipedia.org%2Fwiki%2FNasi_campur&psig=AOvVaw0o99wtNoOUYQhwxHWcaYro&ust=1744192998995000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCKjOorOXyIwDFQAAAAAdAAAAABAE"
+    },
+    {
+        "id": 5,
+        "nameFood": "Nasi Carok",
+        "description": 232413432542,
+        "price": "25000",
+        "imgUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Ffood.detik.com%2Fwarung-makan%2Fd-6561560%2Fbebek-carok-pedasnya-juara-nasi-bebek-madura-tretan-muslim&psig=AOvVaw0-lKEm5_WH4tLhlbwOZiI5&ust=1744193013998000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCMDsp7uXyIwDFQAAAAAdAAAAABAE"
+    }
+]
