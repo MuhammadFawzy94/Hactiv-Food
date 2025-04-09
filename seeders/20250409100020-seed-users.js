@@ -13,7 +13,7 @@ module.exports = {
     await queryInterface.bulkInsert('Users', data, {})
   },
 
-  async down (queryInterface, Sequelize) {
+  async down (queryInterface, Sequelize) {  
       await queryInterface.bulkDelete('Users', null, {});
     }
 };
