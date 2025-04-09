@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "username": "therock",
+        "email": "therock@gmail.com",
+        "password": "jalan rockbottom"
+    },
+    {
+        "id": 2,
+        "username": "johncena",
+        "email": "johncena@gmail.com",
+        "password": "jalan nowyouseeme"
+    },
+    {
+        "id": 3,
+        "username": "kane",
+        "email": "kane@gmail.com",
+        "password": "jalan slam"
+    },
+    {
+        "id": 4,
+        "username": "undertaker",
+        "email": "undertaker@gmail.com",
+        "password": "jalan harley"
+    },
+    {
+        "id": 5,
+        "username": "stonecold",
+        "email": "stonecold@gmail.com",
+        "password": "jalan stoner"
+    }
+]
