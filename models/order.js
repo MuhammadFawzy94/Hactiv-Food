@@ -12,11 +12,14 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       this.belongsTo(models.User, {foreignKey: 'UserId'})
       this.belongsTo(models.Restaurant, {foreignKey: 'RestaurantId'})
+      this.belongsTo(models.Menu, {foreignKey: 'MenuId'})
     }
   }
   Order.init({
     UserId: DataTypes.INTEGER,
-    RestaurantId: DataTypes.INTEGER
+    RestaurantId: DataTypes.INTEGER,
+    MenuId: DataTypes.INTEGER,
+    quantity: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Order',
