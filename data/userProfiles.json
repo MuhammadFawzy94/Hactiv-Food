@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1,
+        "fullName": "Dawney J",
+        "phone": 1234312,
+        "address": "jalan rockbottom",
+        "UserId": 1
+    },
+    {
+        "id": 2,
+        "fullName": "John Cenna M",
+        "phone": 3143532243,
+        "address": "jalan nowyouseeme",
+        "UserId": 2
+    },
+    {
+        "id": 3,
+        "fullName": "Michel Tiny",
+        "phone": 1232143423,
+        "address": "jalan slam",
+        "UserId": 3
+    },
+    {
+        "id": 4,
+        "fullName": "Mike Unlike",
+        "phone": 37482649707,
+        "address": "jalan harley",
+        "UserId": 4
+    },
+    {
+        "id": 5,
+        "fullName": "Steven Austin",
+        "phone": 232413432542,
+        "address": "jalan stoner",
+        "UserId": 5
+    }
+]

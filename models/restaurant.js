@@ -10,13 +10,12 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.hasMany(models.Order, {foreignKey: 'RestaurantId'})
-      this.hasMany(models.Menu, {foreignKey: 'RestaurantId'})
+      Restaurant.hasMany(models.Order, {foreignKey: 'RestaurantId'})
+      Restaurant.hasMany(models.Menu, {foreignKey: 'RestaurantId'})
     }
   }
   Restaurant.init({
-    name_restaurant: DataTypes.STRING,
-    MenuId: DataTypes.INTEGER
+    name_restaurant: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Restaurant',
