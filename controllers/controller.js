@@ -1,6 +1,7 @@
 const { Op } = require('sequelize');
 const {Restaurant, Menu, Order} = require('../models')
 const QRCode = require('qrcode');
+const formatRupiah = require('../helpers/helper');
 
 class Controller{
     static async home(req,res){
@@ -59,7 +60,7 @@ class Controller{
             return res.render('restaurantDetail', { data: null });
         }
 
-        res.render('restaurantDetail', { data });
+        res.render('restaurantDetail', { data, formatRupiah});
         } catch (error) {
          
             res.send(error)
@@ -74,7 +75,7 @@ class Controller{
                 include: [{ model: Menu }, { model: Restaurant }]
               });
            
-              res.render('order', { orders })
+              res.render('order', { orders, formatRupiah})
         } catch (error) {
             res.send(error)
         }
@@ -146,7 +147,7 @@ class Controller{
 
             req.session.pendingOrders = orders;
     
-            res.render('payment', { qrCodeUrl, totalPrice, orders });
+            res.render('payment', { qrCodeUrl, totalPrice, orders , formatRupiah});
         } catch (error) {
           res.send(error)
         }

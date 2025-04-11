@@ -9,7 +9,7 @@
 <body class="bg-light">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
         <div class="container-fluid">
-            <a class="navbar-brand fw-bold" href="#">Hacktiv Food</a>
+            <a class="navbar-brand fw-bold" href="/home">Hacktiv Food</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -26,8 +26,8 @@
                             Setting
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
-                            <li><a class="dropdown-item" href="#">Sign Out</a></li>
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/logout">Sign Out</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -56,7 +56,7 @@
                                     <% } else { %>
                                         <p class="text-muted">No image available</p>
                                     <% } %>
-                                    <h5 class="card-title text-primary"><%= el.price %></h5>
+                                    <h5 class="card-title text-primary">Rp.<%= el.price %></h5>
                                     <p class="card-text"><%= el.description || 'No description available' %></p>
                                     <form action="/input" method="POST">
                                         <input type="hidden" name="MenuId" value="<%= el.id %>">

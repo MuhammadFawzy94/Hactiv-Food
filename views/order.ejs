@@ -9,7 +9,7 @@
 <body>
   <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Hacktiv Food</a>
+      <a class="navbar-brand" href="/home">Hacktiv Food</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -26,7 +26,7 @@
               Setting
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li><a class="dropdown-item" href="/profile">Profile</a></li>
               <li><a class="dropdown-item" href="/logout">Sign Out</a></li>
             </ul>
           </li>
@@ -57,7 +57,7 @@
             <tr>
               <th scope="row"><%= order.Menu.name_food %></th>
               <td><%= order.quantity %></td>
-              <td><%= order.Menu.price * order.quantity %></td>
+              <td>Rp. <%= order.Menu.price * order.quantity %></td>
               <td>
                 <form action="/order/decrement/<%= order.MenuId %>" method="POST" style="display:inline;">
                   <button type="submit" class="btn btn-primary">-</button>
@@ -73,7 +73,7 @@
           <% }) %>
         </tbody>
       </table>
-      <h2>Total Price: <%= orders.length > 0 ? orders.reduce((sum, order) => sum + order.Menu.price * order.quantity, 0) : 0 %></h2>
+      <h2>Total Price: Rp. <%= orders.length > 0 ? orders.reduce((sum, order) => sum + order.Menu.price * order.quantity, 0) : 0 %></h2>
       <form action="/order/complete" method="POST">
         <button type="submit" class="btn btn-success" <%= orders.length === 0 ? 'disabled' : '' %>>Order Now!</button>
       </form>
