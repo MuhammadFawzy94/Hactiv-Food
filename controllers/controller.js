@@ -1,4 +1,6 @@
+const { Op } = require('sequelize');
 const {Restaurant, Menu, Order} = require('../models')
+const QRCode = require('qrcode');
 
 class Controller{
     static async home(req,res){
@@ -9,14 +11,23 @@ class Controller{
         }
     }
 
+
     static async restaurant(req,res){
         try {
             const { search } = req.query;
-            let data = await Restaurant.findAll({
-                where: search ? { name: { [Op.iLike]: `%${search}%` } } : {}
-            });
-            res.render('restaurant', { data })
+            let option = {
+                order: [['name_restaurant', 'ASC']],
+            };
+
+            if (search) {
+                option.where = { name_restaurant: { [Op.iLike]: `%${search}%` } };
+            }
+
+            let data = await Restaurant.findAll(option);
+            
+            res.render('restaurant', { data });
         } catch (error) {
+           
             res.send(error)
         }
     }
@@ -24,17 +35,33 @@ class Controller{
     static async restaurantById(req,res){
         try {
             const { id } = req.params;
-            const { search } = req.query;
-            let data = await Restaurant.findByPk(id, {
-                include: {
-                    model: Menu,
-                    where: search ? { name: { [Op.iLike]: `%${search}%` } } : {}
-                }
-            });
-    
-            res.render('restaurantDetail', { data })
+        const { search } = req.query;
+
+       
+
+        let option = {
+            include: [{
+                model: Menu,
+                required: false, 
+                ...(search && search.trim() && {
+                    where: { name_food: { [Op.iLike]: `%${search.trim()}%` } },
+                }),
+            }],
+            order: [['name_restaurant', 'ASC']],
+        };
+
+        let data = await Restaurant.findByPk(id, option);
+
+        
+
+        if (!data) {
+           
+            return res.render('restaurantDetail', { data: null });
+        }
+
+        res.render('restaurantDetail', { data });
         } catch (error) {
-            console.log(error)
+         
             res.send(error)
         }
     }
@@ -46,7 +73,7 @@ class Controller{
                 where: { UserId: req.session.userId },
                 include: [{ model: Menu }, { model: Restaurant }]
               });
-              console.log('Orders:', JSON.stringify(orders, null, 2))
+           
               res.render('order', { orders })
         } catch (error) {
             res.send(error)
@@ -79,7 +106,7 @@ class Controller{
     static async inputOrder(req,res){
         try {
             const { MenuId } = req.params;
-            const { action } = req.query; // 'plus' atau 'minus'
+            const { action } = req.body; // 'plus' atau 'minus'
             const order = await Order.findOne({
               where: { MenuId, UserId: req.session.userId }
             });
@@ -107,12 +134,65 @@ class Controller{
 
     static async completeOrder(req, res) {
         try {
-          const orders = await Order.findAll({ where: { UserId: req.session.userId } });
-          if (orders.length === 0) throw new Error('No orders to complete');
-          await Order.destroy({ where: { UserId: req.session.userId } });
-          res.redirect('/restaurant');
+            const orders = await Order.findAll({
+                where: { UserId: req.session.userId },
+                include: [{ model: Menu }, { model: Restaurant }]
+            });
+            if (orders.length === 0) throw new Error('No orders to complete');
+    
+            const totalPrice = orders.reduce((sum, order) => sum + order.Menu.price * order.quantity, 0);
+            const qrData = `https://payment-gateway.example.com/pay?userId=${req.session.userId}&amount=${totalPrice}`;
+            const qrCodeUrl = await QRCode.toDataURL(qrData);
+
+            req.session.pendingOrders = orders;
+    
+            res.render('payment', { qrCodeUrl, totalPrice, orders });
         } catch (error) {
-          res.status(500).send(error.message);
+          res.send(error)
+        }
+    }
+
+    static async incrementOrder(req, res) {
+        try {
+            const { MenuId } = req.params;
+            const order = await Order.findOne({
+                where: { MenuId, UserId: req.session.userId }
+            });
+            if (!order) throw new Error('Order not found');
+            order.quantity += 1;
+            await order.save();
+            res.redirect('/order');
+        } catch (error) {
+            console.log('Error in incrementOrder:', error.message);
+            res.redirect('/order?error=' + encodeURIComponent(error.message));
+        }
+    }
+    
+    static async decrementOrder(req, res) {
+        try {
+            const { MenuId } = req.params;
+            const order = await Order.findOne({
+                where: { MenuId, UserId: req.session.userId }
+            });
+            if (!order) throw new Error('Order not found');
+            if (order.quantity > 1) {
+                order.quantity -= 1;
+                await order.save();
+            }
+            res.redirect('/order');
+        } catch (error) {
+            console.log('Error in decrementOrder:', error.message);
+            res.redirect('/order?error=' + encodeURIComponent(error.message));
+        }
+    }
+
+    static async donePayment(req, res) {
+        try {
+            await Order.destroy({ where: { UserId: req.session.userId } });
+         
+            res.redirect('/restaurant?paymentSuccess=true')
+        } catch (error) {
+            res.send(error)
         }
     }
 

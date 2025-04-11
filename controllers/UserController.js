@@ -1,6 +1,7 @@
 const { where } = require('sequelize')
-const { User } = require('../models')
+const { User, UserProfile } = require('../models')
 const bcrypt = require('bcryptjs')
+
 
 class UserController {
     static async home(req, res) {
@@ -8,6 +9,19 @@ class UserController {
             res.render('home')
         } catch (error) {
             res.send(error)
+        }
+    }
+
+    static async getProfile(req, res) {
+        try {
+            const user = await User.findOne({
+                where: { id: req.session.userId },
+                include: [{ model: UserProfile }]
+            });
+            if (!user) throw new Error('User not found');
+            res.render('userProfile', { user });
+        } catch (error) {
+            res.redirect('/home?error=' + encodeURIComponent(error.message));
         }
     }
 
@@ -56,7 +70,7 @@ class UserController {
                     req.session.role = user.role;
                     console.log(req.session.userId = user.id);
 
-
+                    
                     return res.redirect('/home');
                 } else {
                     const error = "Invalid username/password";
@@ -83,6 +97,51 @@ class UserController {
             res.redirect('/login');
         } catch (err) {
             res.send(err);
+        }
+    }
+
+    static async editProfileForm(req, res) {
+        try {
+            const user = await User.findOne({
+                where: { id: req.session.userId },
+                include: [{ model: UserProfile }]
+            });
+            if (!user) throw new Error('User not found');
+            res.render('editProfile', { user });
+        } catch (error) {
+            res.redirect('/profile?error=' + encodeURIComponent(error.message));
+        }
+    }
+
+    // Proses update profile
+    static async updateProfile(req, res) {
+        try {
+            const { email, fullName, address } = req.body;
+            const userId = req.session.userId;
+
+            // Update tabel User
+            await User.update(
+                { email },
+                { where: { id: userId } }
+            );
+
+            // Update atau buat UserProfile jika belum ada
+            const [userProfile, created] = await UserProfile.findOrCreate({
+                where: { UserId: userId },
+                defaults: { fullName, address, UserId: userId }
+            });
+
+            if (!created) {
+                // Jika sudah ada, update data
+                await UserProfile.update(
+                    { fullName, address },
+                    { where: { UserId: userId } }
+                );
+            }
+
+            res.redirect('/profile?success=Profile updated successfully');
+        } catch (error) {
+            res.redirect('/profile/edit?error=' + encodeURIComponent(error.message));
         }
     }
 }

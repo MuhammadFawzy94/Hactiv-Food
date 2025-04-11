@@ -14,13 +14,20 @@ router.get('/logout', isLoggedIn, UserController.getLogout); // Logout
 router.use(isLoggedIn);
 
 // Rute Fitur Restoran
-router.get('/home', UserController.home); // Halaman home (dari UserController untuk testing)
-router.get('/restaurant', Controller.restaurant); // Daftar restoran dengan fitur search
-router.get('/restaurant/:id', Controller.restaurantById); // Detail restoran dan menu
-router.post('/input', Controller.input); // Form input order
-router.get('/order', Controller.order); // Halaman order dengan tombol qty dan delete
-router.post('/order/input/:MenuId', Controller.inputOrder); // Menambah/mengurangi qty di halaman order
-router.post('/order/delete/:MenuId', Controller.deleteMenu); // Menghapus menu dari order
-router.post('/order/complete', Controller.completeOrder)
+router.get('/home',  isLoggedIn, UserController.home); // Halaman home (dari UserController untuk testing)
+router.get('/profile', isLoggedIn, UserController.getProfile)
+router.get('/profile/edit', isLoggedIn, UserController.editProfileForm); // Menampilkan form edit
+router.post('/profile/edit', isLoggedIn, UserController.updateProfile);  // Proses update profile
+router.get('/restaurant',  isLoggedIn, Controller.restaurant); // Daftar restoran dengan fitur search
+router.get('/restaurant/:id',  isLoggedIn, Controller.restaurantById); // Detail restoran dan menu
+router.post('/input',  isLoggedIn, Controller.input); // Form input order
+router.get('/order',  isLoggedIn, Controller.order); // Halaman order dengan tombol qty dan delete
+router.post('/order/complete',  isLoggedIn, Controller.completeOrder)
+router.post('/order/done',  isLoggedIn, Controller.donePayment);
+router.post('/order/increment/:MenuId',  isLoggedIn, Controller.incrementOrder); // Rute baru untuk tombol +
+router.post('/order/decrement/:MenuId',  isLoggedIn, Controller.decrementOrder); // -
+router.post('/order/input/:MenuId',  isLoggedIn, Controller.inputOrder); // Menambah/mengurangi qty di halaman order
+router.post('/order/delete/:MenuId',  isLoggedIn, Controller.deleteMenu); // Menghapus menu dari order
+router.get('/logout', isLoggedIn, UserController.getLogout); // Logout
 
 module.exports = router;
